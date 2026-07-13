@@ -43,8 +43,17 @@ def predict_from_scores(scores):
 def hinge_loss_example(score, y):
     return max(0, 1 - y*score)
 
-# Step 6 - svm_objective (not yet solved)
-# TODO: implement
+# Step 6 - svm_objective
+def svm_objective(x, y, params, reg_lambda):
+    W = params["w"]
+
+    scores = compute_scores(x, params)
+
+    np_hinge_loss = np.vectorize(hinge_loss_example)
+    loss = np_hinge_loss(scores, y)
+    mean_loss = np.mean(loss)
+    
+    return mean_loss + reg_lambda*(W @ W.T)
 
 # Step 7 - compute_gradients (not yet solved)
 # TODO: implement
