@@ -13,7 +13,7 @@ def standardize_features(x):
     col_mean = x.mean(axis=0)
     col_std = x.std(axis=0)
 
-    x = np.where(col_std != 0, (x - col_mean) / col_std, 0.0)
+    x = np.where(col_std != 0, (x - col_mean) / col_std, 0)
     return x
 
 # Step 2 - initialize_parameters (not yet solved)
