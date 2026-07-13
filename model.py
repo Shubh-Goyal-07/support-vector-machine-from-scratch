@@ -45,18 +45,40 @@ def hinge_loss_example(score, y):
 
 # Step 6 - svm_objective
 def svm_objective(x, y, params, reg_lambda):
-    W = params["w"]
+    # W = params["w"]
 
+    # scores = compute_scores(x, params)
+
+    # np_hinge_loss = np.vectorize(hinge_loss_example)
+    # loss = np_hinge_loss(scores, y)
+    # mean_loss = np.mean(loss)
+    
+    # return mean_loss + reg_lambda*(W @ W.T)
     scores = compute_scores(x, params)
 
-    np_hinge_loss = np.vectorize(hinge_loss_example)
-    loss = np_hinge_loss(scores, y)
+    loss = np.maximum(0, 1 - y * scores)
     mean_loss = np.mean(loss)
-    
-    return mean_loss + reg_lambda*(W @ W.T)
 
-# Step 7 - compute_gradients (not yet solved)
-# TODO: implement
+    return mean_loss + reg_lambda * np.sum(params["w"] ** 2)
+
+# Step 7 - compute_gradients
+import numpy as np
+
+def compute_gradients(x, y, params, reg_lambda):
+    """Return {'dw': ndarray shape (n_features,), 'db': float} = gradient of svm_objective."""
+    scores = compute_scores(x, params)
+
+    print(np.unique(y))
+
+    margin = 1 - y * scores
+    mask = margin > 0
+
+    dw = -((x * y[:, None]) * mask[:, None]).mean(axis=0)
+    dw += 2 * reg_lambda * params["w"]
+
+    db = -(y * mask).mean()
+
+    return {"dw": dw, "db": db}
 
 # Step 8 - apply_update (not yet solved)
 # TODO: implement
