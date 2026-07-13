@@ -103,6 +103,9 @@ def predict_labels(x, params):
     scores = compute_scores(x, params)
     return predict_from_scores(scores)
 
-# Step 11 - accuracy_score (not yet solved)
-# TODO: implement
+# Step 11 - accuracy_score
+import numpy as np
+
+def accuracy_score(y_pred, y_true):
+    return np.mean(y_pred==y_true)
 
