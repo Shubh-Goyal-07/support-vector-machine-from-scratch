@@ -16,8 +16,12 @@ def standardize_features(x):
     x = np.where(col_std != 0, (x - col_mean) / col_std, 0)
     return x
 
-# Step 2 - initialize_parameters (not yet solved)
-# TODO: implement
+# Step 2 - initialize_parameters
+import numpy as np
+
+def initialize_parameters(n_features):
+    """Return a dict with 'w' of shape (n_features,) and scalar 'b'."""
+    return {"w": np.random.rand(n_features), "b": np.random.rand()}
 
 # Step 3 - compute_scores (not yet solved)
 # TODO: implement
