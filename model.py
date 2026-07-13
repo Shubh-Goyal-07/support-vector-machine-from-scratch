@@ -68,8 +68,6 @@ def compute_gradients(x, y, params, reg_lambda):
     """Return {'dw': ndarray shape (n_features,), 'db': float} = gradient of svm_objective."""
     scores = compute_scores(x, params)
 
-    print(np.unique(y))
-
     margin = 1 - y * scores
     mask = margin > 0
 
